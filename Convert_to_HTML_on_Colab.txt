@@ -1,0 +1,14 @@
+# Reference: https://qiita.com/sumizome0213/items/6c4ba6af4dc746a0601c
+
+from google.colab import files
+import re
+
+uploaded = files.upload()
+
+for fn in uploaded.keys():
+  fn_s = re.escape(fn)
+  output_fn = fn.split('.', 1)[0]+'.html'
+  output_fn_s = re.escape(output_fn)
+  !jupyter nbconvert --to html $fn_s
+  files.download(output_fn)
+  !rm $fn_s
